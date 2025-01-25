@@ -1,0 +1,22 @@
+{
+    "name": "hexlet/code",
+    "bin": ["bin/gendiff"],
+    "description": "A CLI utility for generating diffs between two files.",
+    "type": "library",
+    "autoload": {
+        "files": [
+            "src/Differ.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "Dmitry Tarasov"
+        }
+    ],
+    "require": {
+        "docopt/docopt": "^1.0"
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^7.2"
+    }
+}
