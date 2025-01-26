@@ -27,6 +27,5 @@ EOL;
 
 
 $args = Docopt::handle($doc, ['version'=>'gendiff 1.0']);
-//var_dump($args['<firstFile>'], $args['<secondFile>']);
 genDiff($args['<firstFile>'], $args['<secondFile>']);
-dd($args);
+
