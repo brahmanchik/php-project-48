@@ -17,6 +17,7 @@ jobs:
         with:
           php-version: '8.4'
       - name: run linter
-        run: make install
         run: make lint
+      - name: run composer install
+        run: make install
 
