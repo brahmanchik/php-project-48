@@ -1,0 +1,21 @@
+name: hexlet-check
+
+on:
+  push:
+    branches:
+      - '**'
+    tags:
+      - '**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps: # список шагов, которые надо выполнить
+      - uses: actions/checkout@v4
+      - name: Setup PHP with PECL extension
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+      - name: run linter
+        run: make lint
+
