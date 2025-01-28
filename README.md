@@ -8,3 +8,7 @@ A package to compare JSON files and show differences.
 ## Example of usage
 
 [![asciinema](https://asciinema.org/a/07kSTaKSslkRcP3CNOJDAb78J)](https://asciinema.org/a/07kSTaKSslkRcP3CNOJDAb78J)
+
+[![show-directory](https://github.com/brahmanchik/php-project-48/actions/workflows/show-directory.yml/badge.svg)](https://github.com/brahmanchik/php-project-48/actions/workflows/show-directory.yml)
+
+[![Maintainability](https://api.codeclimate.com/v1/badges/193d24e5902652b42601/maintainability)](https://codeclimate.com/github/brahmanchik/php-project-48/maintainability)

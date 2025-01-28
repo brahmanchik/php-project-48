@@ -10,14 +10,45 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    steps: # список шагов, которые надо выполнить
+    steps:
+      # 1. Клонирование репозитория
       - uses: actions/checkout@v4
+
+      # 2. Установка PHP
       - name: Setup PHP with PECL extension
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.4'
-      - name: run composer install
+
+      # 3. Установка зависимостей
+      - name: Install dependencies
         run: make install
-      - name: run linter
+
+      # 4. Запуск линтера
+      - name: Run linter
         run: make lint
 
+      # 5. Установка Code Climate Test Reporter
+      - name: Install Code Climate test-reporter
+        run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+
+      # 6. Установка прав для запуска тест-репортера
+      - name: Set executable permissions for test-reporter
+        run: chmod +x ./cc-test-reporter
+
+      # 7. Подготовка Code Climate Test Reporter
+      - name: Code Climate Test Reporter: Before Build
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+        run: ./cc-test-reporter before-build
+
+      # 8. Генерация отчёта покрытия (здесь будут тесты позже)
+      - name: Generate coverage report (skipped for now)
+        run: echo "No tests yet. Add tests to generate coverage."
+
+      # 9. Отправка отчёта покрытия в Code Climate
+      - name: Code Climate Test Reporter: After Build
+        if: always() # Всегда запускаем этот шаг, даже если предыдущие шаги провалились
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+        run: ./cc-test-reporter after-build --exit-code ${{ job.status }}
