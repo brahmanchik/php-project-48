@@ -7,7 +7,7 @@ A package to compare JSON files and show differences.
 
 ## Example of usage
 
-[![asciinema](https://asciinema.org/a/07kSTaKSslkRcP3CNOJDAb78J)](https://asciinema.org/a/07kSTaKSslkRcP3CNOJDAb78J)
+[![asciinema](https://via.placeholder.com/150x50?text=Demo)](https://asciinema.org/a/07kSTaKSslkRcP3CNOJDAb78J)
 
 [![show-directory](https://github.com/brahmanchik/php-project-48/actions/workflows/show-directory.yml/badge.svg)](https://github.com/brahmanchik/php-project-48/actions/workflows/show-directory.yml)
 

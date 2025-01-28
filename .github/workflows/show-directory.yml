@@ -18,7 +18,7 @@ jobs:
       - name: Setup PHP with PECL extension
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.4'
+          php-version: '8.2'
 
       # 3. Установка зависимостей
       - name: Install dependencies
@@ -47,8 +47,9 @@ jobs:
         run: echo "No tests yet. Add tests to generate coverage."
 
       # 9. Отправка отчёта покрытия в Code Climate
-      - name: Code Climate Test Reporter: After Build
-        if: always() # Всегда запускаем этот шаг, даже если предыдущие шаги провалились
+      - name:
+          Code Climate Test Reporter: After Build
+        if: ${{ always() }}
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
         run: ./cc-test-reporter after-build --exit-code ${{ job.status }}
