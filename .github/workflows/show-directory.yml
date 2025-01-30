@@ -29,7 +29,15 @@ jobs:
       - name: Run linter
         run: make lint
 
-      # 5. Запуск тестов и публикация покрытия кода
+      # 5. Установка PHPUnit, если он не был установлен через Composer
+      - name: Install PHPUnit
+        run: composer require --dev phpunit/phpunit
+
+      # 6. Запуск тестов
+      - name: Run PHPUnit tests
+        run: vendor/bin/phpunit --coverage-text # Запуск PHPUnit с покрытием
+
+      # 7. Публикация покрытия кода
       - name: Run tests & publish code coverage
         uses: paambaati/codeclimate-action@v5
         env:

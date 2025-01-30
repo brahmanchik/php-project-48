@@ -10,12 +10,12 @@ function genDiff($pathToFile1, $pathToFile2)
         'contentFile1' => readAndDecodeJson($pathToFile1),
         'contentFile2' => readAndDecodeJson($pathToFile2),
     ];
-    print_r(renderDiff($decodeFiles) . PHP_EOL); //вывод сравнения строк в двух файлах
+    return renderDiff($decodeFiles); //вывод сравнения строк в двух файлах
 }
 
 function readAndDecodeJson($pathToFile)
 {
-    $absolutePath = realpath(__DIR__ . "/../tests/$pathToFile");
+    $absolutePath = realpath($pathToFile); // нужен ли тут __DIR__ ?
     if ($absolutePath === false) {
         throw new \Exception("Файл не найден: $pathToFile");
     }
