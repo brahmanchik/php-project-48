@@ -35,7 +35,7 @@ jobs:
 
       # 6. Запуск тестов
       - name: Run PHPUnit tests
-        run: vendor/bin/phpunit --configuration phpunit.xml --coverage-text # Запуск PHPUnit с покрытием
+        run: make test-coverage
 
       # 7. Публикация покрытия кода
       - name: Run tests & publish code coverage
