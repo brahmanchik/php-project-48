@@ -12,7 +12,7 @@ class DifferTest extends TestCase
         $pathFile1 = __DIR__ . '/fixtures/file1.json';
         $pathFile2 = __DIR__ . '/fixtures/file2.json';
         $pathFileExpected1 = __DIR__ . '/fixtures/Expected1';
-        $resultGenDiff = genDiff($pathFile2, $pathFile1);
+        $resultGenDiff = genDiff($pathFile1, $pathFile2);
         $expected1 = file_get_contents($pathFileExpected1);
         $this->assertEquals($expected1, $resultGenDiff);
     }
