@@ -10,7 +10,8 @@ function genDiff($pathToFile1, $pathToFile2)
         'contentFile1' => readAndDecodeJson($pathToFile1),
         'contentFile2' => readAndDecodeJson($pathToFile2),
     ];
-    return renderDiff($decodeFiles); //вывод сравнения строк в двух файлах
+    return "hello world";
+    //return renderDiff($decodeFiles); //вывод сравнения строк в двух файлах
 }
 
 function readAndDecodeJson($pathToFile)
