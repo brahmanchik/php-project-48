@@ -44,19 +44,18 @@ function renderDiff($filesContent)
         $value2Formatted = formatValue($value2);
 
         if (array_key_exists($key, $contentFile1) && !array_key_exists($key, $contentFile2)) {
-            return "- $key: $value1Formatted"; // эта строчка только в первом файле
+            return "  - $key: $value1Formatted"; // эта строчка только в первом файле
         } elseif (array_key_exists($key, $contentFile2) && !array_key_exists($key, $contentFile1)) {
-            return "+ $key: $value2Formatted"; // эта строчка только во втором файле
+            return "  + $key: $value2Formatted"; // эта строчка только во втором файле
         } elseif ($contentFile1[$key] === $contentFile2[$key]) {
-            return "  $key: $value1Formatted"; // эта строчка есть в обоих файлах
+            return "    $key: $value1Formatted"; // эта строчка есть в обоих файлах
         } else {
             return [
-                "- $key: $value1Formatted", // эта строчка только в первом файле
-                "+ $key: $value2Formatted"  // эта строчка только во втором файле
+                "  - $key: $value1Formatted", // эта строчка только в первом файле
+                "  + $key: $value2Formatted"  // эта строчка только во втором файле
             ];
         }
     }, $keysSort);
-    var_dump($diff);
     // Используем array_reduce, чтобы собрать все результаты в один строковый вывод
     $flattenedDiff = array_reduce($diff, function ($carry, $item) {
         // Если $item — массив, развертываем его элементы
@@ -65,7 +64,7 @@ function renderDiff($filesContent)
     }, []);
 
     // Возвращаем строку, объединяя все элементы с помощью новой строки
-    return implode("\n", $flattenedDiff);
+    return "{\n" . implode("\n", $flattenedDiff) . "\n}";
 }
 
 function formatValue($value)
