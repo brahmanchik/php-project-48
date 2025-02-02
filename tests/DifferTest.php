@@ -16,6 +16,8 @@ class DifferTest extends TestCase
         $resultGenDiff = genDiff($pathFile1, $pathFile2);
         $expected1 = file_get_contents($pathFileExpected1);
         //dd($expected1, $resultGenDiff);
+        var_dump(realpath($pathFileExpected1), file_exists($pathFileExpected1), file_get_contents($pathFileExpected1));
+        exit;
         $this->assertEquals($expected1, $resultGenDiff);
     }
 }
