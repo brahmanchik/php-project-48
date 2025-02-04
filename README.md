@@ -9,6 +9,10 @@ A package to compare JSON files and show differences.
 
 [![asciinema](Demo)](https://asciinema.org/a/07kSTaKSslkRcP3CNOJDAb78J)
 
+## Демонстрация работы c yaml файлами
+
+[![asciicast](https://asciinema.org/a/OboKxUTdrGmB6Jkk89L8B5Wit.svg)](https://asciinema.org/a/OboKxUTdrGmB6Jkk89L8B5Wit)
+
 [![show-directory](https://github.com/brahmanchik/php-project-48/actions/workflows/show-directory.yml/badge.svg)](https://github.com/brahmanchik/php-project-48/actions/workflows/show-directory.yml)
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/193d24e5902652b42601/maintainability)](https://codeclimate.com/github/brahmanchik/php-project-48/maintainability)

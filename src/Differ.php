@@ -3,15 +3,16 @@
 namespace Differ\Differ;
 
 use function Functional\sort;
+use function Differ\Parsers\parseFile;
 
 function genDiff($pathToFile1, $pathToFile2)
 {
     $decodeFiles = [
-        'contentFile1' => readAndDecodeJson($pathToFile1),
-        'contentFile2' => readAndDecodeJson($pathToFile2),
+        'contentFile1' => parseFile($pathToFile1),
+        'contentFile2' => parseFile($pathToFile2),
     ];
-    //return "hello world";
-    return renderDiff($decodeFiles); //вывод сравнения строк в двух файлах
+    //dd($decodeFiles);
+    return renderDiff($decodeFiles) . PHP_EOL; //вывод сравнения строк в двух файлах
 }
 
 function readAndDecodeJson($pathToFile)

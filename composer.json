@@ -5,7 +5,8 @@
     "type": "library",
     "autoload": {
         "files": [
-            "src/Differ.php"
+            "src/Differ.php",
+            "src/Parsers.php"
         ]
     },
     "authors": [
@@ -15,7 +16,8 @@
     ],
     "require": {
         "docopt/docopt": "^1.0",
-        "lstrojny/functional-php": "^1.17"
+        "lstrojny/functional-php": "^1.17",
+        "symfony/yaml": "^7.2"
     },
     "require-dev": {
         "symfony/var-dumper": "^7.2",
