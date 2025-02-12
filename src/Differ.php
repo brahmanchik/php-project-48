@@ -5,31 +5,15 @@ namespace Differ\Differ;
 use function Functional\sort;
 use function Differ\Parsers\parseFile;
 
-function genDiff($pathToFile1, $pathToFile2)
+function genDiff($pathToFile1, $pathToFile2, $format = "stylish")
 {
-    $decodeFiles = [
-        'contentFile1' => parseFile($pathToFile1),
-        'contentFile2' => parseFile($pathToFile2),
-    ];
-    //dd($decodeFiles);
-    return renderDiff($decodeFiles) . PHP_EOL; //вывод сравнения строк в двух файлах
+    $decodeFile1 = parseFile($pathToFile1);
+    $decodeFile2 = parseFile($pathToFile2);
+    return renderDiff($decodeFile1, $decodeFile2) . PHP_EOL; //вывод сравнения строк в двух файлах
 }
 
-function readAndDecodeJson($pathToFile)
+function renderDiff($contentFile1, $contentFile2) //generateDiff
 {
-    $absolutePath = realpath($pathToFile); // нужен ли тут __DIR__ ?
-    if ($absolutePath === false) {
-        throw new \Exception("Файл не найден: $pathToFile");
-    }
-
-    $content = file_get_contents($absolutePath);
-    return json_decode($content, true); // возвращаю содержимое переданного файла в массива
-}
-
-function renderDiff($filesContent)
-{
-    $contentFile1 = $filesContent['contentFile1'];
-    $contentFile2 = $filesContent['contentFile2'];
     $keys = array_keys(array_merge($contentFile1, $contentFile2));
 
     // Сортируем ключи с помощью функциональной функции sort
