@@ -9,92 +9,53 @@ if (file_exists($autoloadPath1)) {
 } else {
     require_once $autoloadPath2;
 }
-//use function Differ\Differ\formatValue;
-/*function toString($value)
+
+use function Differ\Differ\formatValue;
+
+function toString($value, int $depth = 1)
 {
-    // Если это массив, формируем вывод с фигурными скобками
-    if (is_array($value)) {
-        $result = "{\n";
-        foreach ($value as $key => $val) {
-            $result .= "        {$key}: " . toString($val) . "\n"; // добавляем отступ
-        }
-        $result .= "    }";
-        return $result;
+
+    if (is_bool($value)) {
+        return $value ? 'true' : 'false';
     }
-    // Если не массив, выводим значение как есть
-    return var_export($value, true);
-}
-function formatStylish($diff, string $replacer = ' ', int $spacesCount = 2): string
-{
-    $iter = function ($currentValue, $depth) use (&$iter, $replacer, $spacesCount) {
-        if (!is_array($currentValue)) {
-            return toString($currentValue);
-        }
+    if ($value === null) {
+        return 'null';
+    }
+    if (is_array($value)) {
+        $indentSize = $depth * 4;
+        $currentIndent = str_repeat(' ', $indentSize);
+        $bracketIndent = str_repeat(' ', $indentSize - 4);
 
-        $indentSize = $depth * $spacesCount;
-        $currentIndent = str_repeat($replacer, $indentSize);
-        $bracketIndent = str_repeat($replacer, $indentSize - $spacesCount);
+        $result = array_map(fn($k, $v) => "{$currentIndent}{$k}: " . toString($v, $depth + 1), array_keys($value), $value);
+        return "{\n" . implode("\n", $result) . "\n{$bracketIndent}}";
+    }
+    return  (string) $value;
 
-        $lines = array_map(function($node) use ($iter, $currentIndent, $bracketIndent, $depth)
-            {
-                $key = $node['key'];
-                $type = $node['type'];
-
-                return match($type) {
-                    'nested' => "{$currentIndent}{$key}: " . $iter($node['children'], $depth + 1) . "  {$bracketIndent}",
-                    'added' => "{$currentIndent}+ {$key}: " . toString($node['value']),
-                    'removed' => "{$currentIndent}- {$key}: " . toString($node['value']),
-                    'changed' => "{$currentIndent}- {$key}: " . toString($node['oldValue']) . "\n"
-                                . "{$currentIndent}+ {$key}: " . toString($node['newValue']),
-                    'unchanged' => "{$currentIndent}  {$key}: " . toString($node['value']),
-                    default => throw new Exception("Unknown type: $type"),
-                };
-            },
-            $currentValue
-        );
-        $result = ['{', ...$lines, "{$bracketIndent}}"];
-        return implode("\n", $result);
-    };
-
-    return $iter($diff, 1);
-}*/
-function toString($value)
-{
-    return trim(var_export($value, true), "'");
 }
 
-// BEGIN
-function stringify($value, string $replacer = ' ', int $spacesCount = 4): string
+function formatStylish(array $diff, int $depth = 1): string
 {
-    $iter = function ($currentValue, $depth) use (&$iter, $replacer, $spacesCount) {
-    /*    if (!array_key_exists("children", $currentValue)) {
-            return toString($currentValue['value']); //если эта хуета несодержит подмасивы, то переводим это дело в строку
-        }*/
+    $indentSize = $depth * 4;
+    $currentIndent = str_repeat(' ', $indentSize - 2);
+    $bracketIndent = str_repeat(' ', $indentSize - 4);
 
-        $indentSize = $depth * $spacesCount; //на первой итерации эта хуета будет равна 4 * 1
-        $currentIndent = str_repeat($replacer, $indentSize); //выводим отсуп столько раз чему равна хуета выше
-        $bracketIndent = str_repeat($replacer, $indentSize - $spacesCount); // отступ для } который меньше верхнего отсупа, всегда на 4
+    $lines = array_map(function ($node) use ($currentIndent, $depth) {
+        $key = $node['key'];
+        $type = $node['type'];
 
-        $lines = array_map(
-            function($val) {
-                if ($val['type'] === 'nested') {
+        return match ($type) {
+            'nested' => "{$currentIndent}  {$key}: " . formatStylish($node['children'], $depth + 1),
+            'added' => "{$currentIndent}+ {$key}: " . toString($node['value'], $depth + 1),
+            'removed' => "{$currentIndent}- {$key}: " . toString($node['value'], $depth + 1),
+            'changed' => "{$currentIndent}- {$key}: " . toString($node['oldValue'], $depth + 1) . "\n"
+                . "{$currentIndent}+ {$key}: " . toString($node['newValue'], $depth + 1),
+            'unchanged' => "{$currentIndent}  {$key}: " . toString($node['value']),
+            default => throw new \Exception("Unknown type: $type"),
+        };
+    }, $diff);
 
-                    return null;
-                }
-                return $val['value'];
-            },
-            $currentValue
-        );
-        dd($lines);
-
-        $result = ['{', ...$lines, "{$bracketIndent}}"];
-
-        return implode("\n", $result);
-    };
-
-    return $iter($value, 1);
+    return "{\n" . implode("\n", $lines) . "\n{$bracketIndent}}";
 }
-
 
 $diff = [
     [
@@ -213,5 +174,5 @@ $diff = [
     ]
 ];
 
-//print_r(formatStylish($diff));
-print_r(stringify($diff));
+print_r(formatStylish($diff));
+

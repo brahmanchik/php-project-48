@@ -21,19 +21,30 @@ function generateDiff($contentFile1, $contentFile2): array
     // Сортируем ключи с помощью функциональной функции sort
     $keysSort = sort($keys, fn($left, $right) => strcmp($left, $right), true);
     $iter = function ($key, $contentFile1, $contentFile2) use (&$iter) {
-        $value1 = $contentFile1[$key];
-        $value2 = $contentFile2[$key];
+//$key это ключь, например первый ключ который поступает это 'common' а ниже мы уже получаем массив (необязательно масив) который внутри common
+        $value1 = $contentFile1[$key] ?? null; // Если 'значения' нет, то будет null
+        $value2 = $contentFile2[$key] ?? null; // Если 'значения' нет, то будет null
+        //на первом проходе проходим по всем первым ключам $key этих двух массивов а на следующих рекурсиях будем погружаться глубже
+
+        if (is_array($value1) && is_array($value2)) {
+            //если хуета и вторая хуета массив, то проводим рекурсию
+            $keys = array_keys(array_merge($value1, $value2));
+
+            // получаем ключи этих масивов, на первом проходе там будут setting1 setting2 и так далее
+            $keysNestedSorted = sort($keys, fn($left, $right) => strcmp($left, $right), true);
+            //и сортировали массив зачем то я не ябу зачем
+            // дальше возвращаем масив на первой итерации он будет равен key = common
+            // type = nested что означает вложенный
+            // а children равны массиву который формируется вызовом рекурсии
+            // получается children будет только тогда когда ключи равны друг другу епта типа ключ comon есть и там и сям
+            return ['key' => $key, 'type' => 'nested',
+                'children' => array_map(fn($nestedKey) => $iter($nestedKey, $value1, $value2), $keysNestedSorted)];
+        }// пока тут.
         if (!array_key_exists($key, $contentFile2)) {
             return ['key' => $key, 'type' => 'removed', 'value' => $value1];
         }
         if (!array_key_exists($key, $contentFile1)) {
             return ['key' => $key, 'type' => 'added', 'value' => $value2];
-        }
-        if (is_array($value1) && is_array($value2)) {
-            $keys = array_keys(array_merge($value1, $value2));
-            $keysNestedSorted = sort($keys, fn($left, $right) => strcmp($left, $right), true);
-            return ['key' => $key, 'type' => 'nested',
-                'children' => array_map(fn($nestedKey) => $iter($nestedKey, $value1, $value2), $keysNestedSorted)];
         }
         if ($value1 !== $value2) {
             return ['key' => $key, 'type' => 'changed', 'oldValue' => $value1, 'newValue' => $value2];
