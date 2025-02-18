@@ -174,5 +174,5 @@ $diff = [
     ]
 ];
 
-print_r(formatStylish($diff));
+//print_r(formatStylish($diff));
 

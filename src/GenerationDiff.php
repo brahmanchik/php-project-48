@@ -10,8 +10,6 @@ if (file_exists($autoloadPath1)) {
     require_once $autoloadPath2;
 }
 
-
-use function Differ\Differ\formatValue;
 use function Functional\sort;
 
 
@@ -32,14 +30,12 @@ function generateDiff($contentFile1, $contentFile2): array
 
             // получаем ключи этих масивов, на первом проходе там будут setting1 setting2 и так далее
             $keysNestedSorted = sort($keys, fn($left, $right) => strcmp($left, $right), true);
-            //и сортировали массив зачем то я не ябу зачем
             // дальше возвращаем масив на первой итерации он будет равен key = common
-            // type = nested что означает вложенный
+            // type = nested означает вложенный
             // а children равны массиву который формируется вызовом рекурсии
-            // получается children будет только тогда когда ключи равны друг другу епта типа ключ comon есть и там и сям
             return ['key' => $key, 'type' => 'nested',
                 'children' => array_map(fn($nestedKey) => $iter($nestedKey, $value1, $value2), $keysNestedSorted)];
-        }// пока тут.
+        }
         if (!array_key_exists($key, $contentFile2)) {
             return ['key' => $key, 'type' => 'removed', 'value' => $value1];
         }
@@ -113,5 +109,3 @@ $file2 = [
         "fee" => 100500
     ]
 ];
-
-print_r(generateDiff($file1, $file2));

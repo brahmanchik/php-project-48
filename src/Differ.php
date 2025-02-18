@@ -2,16 +2,21 @@
 
 namespace Differ\Differ;
 
-use function Functional\sort;
+use function Differ\GenerationDiff\generateDiff;
+use function Differ\FormatDiffStylish\formatStylish;
 use function Differ\Parsers\parseFile;
 
 function genDiff($pathToFile1, $pathToFile2, $format = "stylish")
 {
     $decodeFile1 = parseFile($pathToFile1);
     $decodeFile2 = parseFile($pathToFile2);
-    return renderDiff($decodeFile1, $decodeFile2) . PHP_EOL; //вывод сравнения строк в двух файлах
+    $differenceMap = generateDiff($decodeFile1, $decodeFile2); //вывод сравнения строк в двух файлах
+    return match ($format) {
+        'stylish' => formatStylish($differenceMap) . PHP_EOL,
+        default => throw new \Exception("Unknown format: $format"),
+    };
 }
-
+/*
 function renderDiff($contentFile1, $contentFile2) //generateDiff
 {
     $keys = array_keys(array_merge($contentFile1, $contentFile2));
@@ -62,3 +67,4 @@ function formatValue($value)
     }
     return $value; // Остальные значения возвращаются как есть
 }
+*/
