@@ -7,8 +7,9 @@
         "files": [
             "src/Differ.php",
             "src/Parsers.php",
-            "src/FormatDiffStylish.php",
-            "src/GenerationDiff.php"
+            "src/Formatters/FormatDiffStylish.php",
+            "src/GenerationDiff.php",
+            "src/Stringify.php"
         ]
     },
     "authors": [

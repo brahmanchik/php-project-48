@@ -19,9 +19,13 @@ class DifferTest extends TestCase
 
         $pathFile1Yaml = __DIR__ . '/fixtures/file1.yaml';
         $pathFile2Yaml = __DIR__ . '/fixtures/file2.yaml';
-        $pathFileExpected1 = __DIR__ . '/fixtures/expected1';
+        $pathFileExpected2 = __DIR__ . '/fixtures/expected1';
         $resultGenDiff = genDiff($pathFile1Yaml, $pathFile2Yaml);
-        $expected1 = file_get_contents($pathFileExpected1);
-        $this->assertEquals($expected1, $resultGenDiff);
+        $expected2 = file_get_contents($pathFileExpected2);
+        $this->assertEquals($expected2, $resultGenDiff);
+
+        $pathFileExpected3 = __DIR__ . '/fixtures/expected2';
+        $expected3 = file_get_contents($pathFileExpected3);
+        $this->assertEquals($expected3, genDiff($pathFile1Json, $pathFile2Json, 'plain'));
     }
 }
