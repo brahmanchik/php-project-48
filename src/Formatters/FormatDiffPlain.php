@@ -1,7 +1,7 @@
 <?php
 
 namespace Differ\Formatters\FormatDiffPlain;
-
+/*
 $autoloadPath1 = __DIR__ . '/../../../autoload.php';
 $autoloadPath2 = __DIR__ . '/../../vendor/autoload.php';
 if (file_exists($autoloadPath1)) {
@@ -9,25 +9,34 @@ if (file_exists($autoloadPath1)) {
 } else {
     require_once $autoloadPath2;
 }
-
+*/
 use function Differ\Stringify\toString;
 
+function formatValue($value, int $depth = 1)
+{
+    if (is_array($value)) {
+       return "[complex value]";
+    }
+    return  toString($value, true);
+}
 function formatPlain(array $diff, $parent = ""): string
 {
-    $lines = array_map(function ($node) use ($parent){
+        $lines = array_map(function ($node) use ($parent){
         $key = $node['key'];
         $type = $node['type'];
+        $fullPath = $parent === "" ? $key : "{$parent}.{$key}";
         return match ($type) {
-            'nested' =>  "Property '{$key}." . formatPlain($node['children'], $key),
-            'added' => "{$parent}.{$key}' was added with value: " . toString($node['value']),
-        'removed' => "Property '{$parent}.{$key}': was removed",
-            'changed' => "Property '{$parent}.{$key}': was updated. From " . toString($node['oldValue']) . " to " . toString($node['newValue']),
-            'unchanged' => " {$key}: ",
+            'nested' => formatPlain($node['children'], "$fullPath"),
+            'added' => "Property '{$fullPath}' was added with value: " . formatValue($node['value']),
+            'removed' => "Property '{$fullPath}' was removed",
+            'changed' => "Property '{$fullPath}' was updated. From " .
+                formatValue($node['oldValue']) . " to " . formatValue($node['newValue']),
+           'unchanged' => "",
             default => throw new \Exception("Unknown type: $type"),
         };
     }, $diff);
 
-    return implode("\n", $lines);
+    return implode("\n", array_filter($lines));
 }
 
 $array = [
@@ -38,7 +47,7 @@ $array = [
             4 => [
                 'key' => 'follow',
                 'type' => 'added',
-                'value' => null,
+                'value' => false,
             ],
             0 => [
                 'key' => 'setting1',
@@ -53,7 +62,7 @@ $array = [
             2 => [
                 'key' => 'setting3',
                 'type' => 'changed',
-                'oldValue' => 1,
+                'oldValue' => true,
                 'newValue' => null,
             ],
             5 => [
@@ -79,7 +88,7 @@ $array = [
                             0 => [
                                 'key' => 'wow',
                                 'type' => 'changed',
-                                'oldValue' => null,
+                                'oldValue' => "",
                                 'newValue' => 'so much',
                             ],
                         ],
@@ -146,5 +155,4 @@ $array = [
         ],
     ],
 ];
-
-print_r(formatPlain($array));
+//print_r(formatPlain($array));
