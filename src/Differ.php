@@ -6,7 +6,8 @@ use function Differ\GenerationDiff\generateDiff;
 use function Differ\Formatters\Formatter\formatDifference;
 use function Differ\Parsers\parseFile;
 
-function getFileData(string $pathToFile): array {
+function getFileData(string $pathToFile): array
+{
     $absolutePath = realpath($pathToFile);
 
     if ($absolutePath === false || !file_exists($absolutePath)) {

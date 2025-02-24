@@ -28,4 +28,3 @@ EOL;
 
 $args = Docopt::handle($doc, ['version'=>'gendiff 1.0']);
 print_r(genDiff($args['<firstFile>'], $args['<secondFile>'], $args['--format']));
-

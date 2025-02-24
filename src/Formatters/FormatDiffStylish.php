@@ -3,6 +3,7 @@
 namespace Differ\Formatters\FormatDiffStylish;
 
 use function Differ\Stringify\toString;
+
 const INDENT_SYMBOL = ' ';
 const INDENT_REPEAT = 4;
 const NESTED = 'nested';
@@ -16,8 +17,8 @@ function formatValue($value, int $depth = 1)
         $indentSize = $depth * INDENT_REPEAT;
         $currentIndent = str_repeat(INDENT_SYMBOL, $indentSize);
         $bracketIndent = str_repeat(INDENT_SYMBOL, $indentSize - INDENT_REPEAT);
-
-        $result = array_map(fn($k, $v) => "{$currentIndent}{$k}: " . formatValue($v, $depth + 1), array_keys($value), $value);
+        $result = array_map(fn($k, $v) => "{$currentIndent}{$k}: " . formatValue($v, $depth + 1),
+            array_keys($value),$value);
         return "{\n" . implode("\n", $result) . "\n{$bracketIndent}}";
     }
     return  toString($value);

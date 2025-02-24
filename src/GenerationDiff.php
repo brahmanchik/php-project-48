@@ -2,7 +2,6 @@
 
 namespace Differ\GenerationDiff;
 
-
 use function Functional\sort;
 
 function generateDiff($contentFile1, $contentFile2): array
@@ -11,13 +10,11 @@ function generateDiff($contentFile1, $contentFile2): array
     // Сортируем ключи с помощью функциональной функции sort
     $keysSort = sort($keys, fn($left, $right) => strcmp($left, $right), true);
     $iter = function ($key, $contentFile1, $contentFile2) use (&$iter) {
-//$key это ключь, например первый ключ который поступает это 'common' а ниже мы уже получаем массив (необязательно масив) который внутри common
         $value1 = $contentFile1[$key] ?? null; // Если 'значения' нет, то будет null
         $value2 = $contentFile2[$key] ?? null; // Если 'значения' нет, то будет null
-        //на первом проходе проходим по всем первым ключам $key этих двух массивов а на следующих рекурсиях будем погружаться глубже
 
         if (is_array($value1) && is_array($value2)) {
-            //если хуета и вторая хуета массив, то проводим рекурсию
+            //если оба массивы, то проводим рекурсию
             $keys = array_keys(array_merge($value1, $value2));
 
             // получаем ключи этих масивов, на первом проходе там будут setting1 setting2 и так далее
