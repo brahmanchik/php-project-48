@@ -26,7 +26,7 @@ function formatPlain(array $diff, $parent = ""): string
                 formatValue($node['oldValue']) . " to " . formatValue($node['newValue']),
                 'unchanged' => "",
                 default => throw new \Exception("Unknown type: $type"),
-        };
+            };
     }, $diff);
 
     return implode("\n", array_filter($lines));
