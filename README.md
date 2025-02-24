@@ -5,13 +5,9 @@
 
 A package to compare JSON files and show differences.
 
-## Example of usage
+## Demonstration of comparison with yaml and json files
 
-[![asciinema](Demo)](https://asciinema.org/a/07kSTaKSslkRcP3CNOJDAb78J)
-
-## Демонстрация работы c yaml файлами
-
-[![asciicast](https://asciinema.org/a/OboKxUTdrGmB6Jkk89L8B5Wit.svg)](https://asciinema.org/a/OboKxUTdrGmB6Jkk89L8B5Wit)
+[![asciicast](https://asciinema.org/a/HgLB9G9g9BydEq6BaKHbefJIS.svg)](https://asciinema.org/a/HgLB9G9g9BydEq6BaKHbefJIS)
 
 [![show-directory](https://github.com/brahmanchik/php-project-48/actions/workflows/show-directory.yml/badge.svg)](https://github.com/brahmanchik/php-project-48/actions/workflows/show-directory.yml)
 

@@ -4,19 +4,12 @@ namespace Differ\Parsers;
 
 use Symfony\Component\Yaml\Yaml;
 
-function parseFile($pathToFile): array
+function parseFile($fileInfo): array
 {
-    $absolutePath = realpath($pathToFile); // нужен ли тут __DIR__ ?
-    var_dump($absolutePath);
-    if ($absolutePath === false) {
-        throw new \Exception("Файл не найден: $pathToFile");
-    }
-    $extension = pathinfo($pathToFile, PATHINFO_EXTENSION);
-    $content = file_get_contents($absolutePath);
-    return match ($extension) {
-        'json' => json_decode($content, true),
-        'yml', 'yaml' => Yaml::parse($content),
+    return match ($fileInfo['extension']) {
+        'json' => json_decode($fileInfo['content'], true),
+        'yml', 'yaml' => Yaml::parse($fileInfo['content']),
         //'yml', 'yaml' => (array) Yaml::parse($content, Yaml::PARSE_OBJECT_FOR_MAP),
-        default => throw new \Exception("Не предвиденный формат: $extension"),
+        default => throw new \Exception("Не предвиденный формат: " . $fileInfo['extension']),
     }; // возвращаю содержимое переданного файла в виде массиве
 }
