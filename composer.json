@@ -8,6 +8,9 @@
             "src/Differ.php",
             "src/Parsers.php",
             "src/Formatters/FormatDiffStylish.php",
+            "src/Formatters/FormatDiffPlain.php",
+            "src/Formatters/FormatDiffJson.php",
+            "src/Formatters/Formatter.php",
             "src/GenerationDiff.php",
             "src/Stringify.php"
         ]

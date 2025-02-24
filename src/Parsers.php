@@ -7,6 +7,7 @@ use Symfony\Component\Yaml\Yaml;
 function parseFile($pathToFile): array
 {
     $absolutePath = realpath($pathToFile); // нужен ли тут __DIR__ ?
+    var_dump($absolutePath);
     if ($absolutePath === false) {
         throw new \Exception("Файл не найден: $pathToFile");
     }
@@ -14,7 +15,8 @@ function parseFile($pathToFile): array
     $content = file_get_contents($absolutePath);
     return match ($extension) {
         'json' => json_decode($content, true),
-        'yml', 'yaml' => (array) Yaml::parse($content, Yaml::PARSE_OBJECT_FOR_MAP),
+        'yml', 'yaml' => Yaml::parse($content),
+        //'yml', 'yaml' => (array) Yaml::parse($content, Yaml::PARSE_OBJECT_FOR_MAP),
         default => throw new \Exception("Не предвиденный формат: $extension"),
     }; // возвращаю содержимое переданного файла в виде массиве
 }

@@ -5,10 +5,6 @@ namespace Differ\GenerationDiff;
 
 use function Functional\sort;
 
-function stringify($value)
-{
-    return (var_export($value, true));
-}
 function generateDiff($contentFile1, $contentFile2): array
 {
     $keys = array_keys(array_merge($contentFile1, $contentFile2)); //получаю общий список ключей из 2 файлов

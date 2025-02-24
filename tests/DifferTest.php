@@ -25,7 +25,11 @@ class DifferTest extends TestCase
         $this->assertEquals($expected2, $resultGenDiff);
 
         $pathFileExpected3 = __DIR__ . '/fixtures/expected2';
-        $expected3 = file_get_contents($pathFileExpected3);
-        $this->assertEquals($expected3, genDiff($pathFile1Json, $pathFile2Json, 'plain'));
+        $expectedPlain = file_get_contents($pathFileExpected3);
+        $this->assertEquals($expectedPlain, genDiff($pathFile1Json, $pathFile2Json, 'plain'));
+
+        $pathFileExpected4 = __DIR__ . '/fixtures/expected3';
+        $expectedJson = file_get_contents($pathFileExpected4);
+        $this->assertEquals($expectedJson, genDiff($pathFile1Json, $pathFile2Json, 'json'));
     }
 }
