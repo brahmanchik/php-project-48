@@ -11,7 +11,7 @@ const ADDED = 'added';
 const REMOVED = 'removed';
 const CHANGED = 'changed';
 const UNCHANGED = 'unchanged';
-function formatValue($value, int $depth = 1)
+function formatValue(mixed $value, int $depth = 1)
 {
     if (is_array($value)) {
         $indentSize = $depth * INDENT_REPEAT;
