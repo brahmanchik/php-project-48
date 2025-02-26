@@ -4,7 +4,7 @@ namespace Differ\Formatters\FormatDiffPlain;
 
 use function Differ\Stringify\toString;
 
-function formatValue($value)
+function formatValue(mixed $value): string
 {
     if (is_array($value)) {
         return "[complex value]";
@@ -12,7 +12,7 @@ function formatValue($value)
     return toString($value, true);
 }
 
-function formatPlain(array $diff, $parent = ""): string
+function formatPlain(array $diff, string $parent = ""): string
 {
     $lines = array_map(function ($node) use ($parent) {
             $key = $node['key'];

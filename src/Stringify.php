@@ -2,7 +2,7 @@
 
 namespace Differ\Stringify;
 
-function toString($value, bool $quoteStrings = false)
+function toString(mixed $value, bool $quoteStrings = false): string
 {
     if (is_bool($value)) {
         return $value ? 'true' : 'false';

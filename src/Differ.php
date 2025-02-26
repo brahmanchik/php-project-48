@@ -19,7 +19,7 @@ function getFileData(string $pathToFile): array
         "content" => file_get_contents($absolutePath),
     ];
 }
-function genDiff($pathToFile1, $pathToFile2, $format = "stylish")
+function genDiff(string $pathToFile1, string $pathToFile2, string $format = 'stylish'): string
 {
     $fileInfo1 = getFileData($pathToFile1);
     $fileInfo2 = getFileData($pathToFile2);

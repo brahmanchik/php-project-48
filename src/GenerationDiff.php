@@ -4,7 +4,7 @@ namespace Differ\GenerationDiff;
 
 use function Functional\sort;
 
-function generateDiff($contentFile1, $contentFile2): array
+function generateDiff(array $contentFile1, array $contentFile2): array
 {
     $keys = array_keys(array_merge($contentFile1, $contentFile2)); //получаю общий список ключей из 2 файлов
     // Сортируем ключи с помощью функциональной функции sort
