@@ -4,11 +4,11 @@ namespace Differ\Parsers;
 
 use Symfony\Component\Yaml\Yaml;
 
-function parseFile($fileInfo): array
+function parseFile($extension, $content): array
 {
-    return match ($fileInfo['extension']) {
-        'json' => json_decode($fileInfo['content'], true),
-        'yml', 'yaml' => Yaml::parse($fileInfo['content']),
-        default => throw new \Exception("Не предвиденный формат: " . $fileInfo['extension']),
+    return match ($extension) {
+        'json' => json_decode($content, true),
+        'yml', 'yaml' => Yaml::parse($content),
+        default => throw new \Exception("Не предвиденный формат: " . $extension),
     }; // возвращаю содержимое переданного файла в виде массиве
 }

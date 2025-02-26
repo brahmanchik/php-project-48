@@ -21,8 +21,10 @@ function getFileData(string $pathToFile): array
 }
 function genDiff($pathToFile1, $pathToFile2, $format = "stylish")
 {
-    $decodeFile1 = parseFile(getFileData($pathToFile1));
-    $decodeFile2 = parseFile(getFileData($pathToFile2));
+    $fileInfo1 = getFileData($pathToFile1);
+    $fileInfo2 = getFileData($pathToFile2);
+    $decodeFile1 = parseFile($fileInfo1['extension'], $fileInfo1['content']);
+    $decodeFile2 = parseFile($fileInfo2['extension'], $fileInfo2['content']);
     $differenceMap = generateDiff($decodeFile1, $decodeFile2); //вывод сравнения строк в двух файлах
     return formatDifference($differenceMap, $format);
 }
