@@ -3,7 +3,9 @@
 namespace Differ\Tests;
 
 use PhpParser\Node\Expr\Print_;
+
 use PHPUnit\Framework\TestCase;
+
 use function Differ\Differ\genDiff;
 
 class DifferTest extends TestCase

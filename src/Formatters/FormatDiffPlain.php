@@ -4,7 +4,7 @@ namespace Differ\Formatters\FormatDiffPlain;
 
 use function Differ\Stringify\toString;
 
-function formatValue($value, int $depth = 1)
+function formatValue($value)
 {
     if (is_array($value)) {
         return "[complex value]";

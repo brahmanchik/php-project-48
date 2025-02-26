@@ -1,6 +1,6 @@
 <?php
 
-namespace Differ\Formatters\Formatter;
+namespace Differ\Formatter;
 
 use function Differ\Formatters\FormatDiffStylish\formatStylish;
 use function Differ\Formatters\FormatDiffPlain\formatPlain;

@@ -3,7 +3,7 @@
 namespace Differ\Differ;
 
 use function Differ\GenerationDiff\generateDiff;
-use function Differ\Formatters\Formatter\formatDifference;
+use function Differ\Formatter\formatDifference;
 use function Differ\Parsers\parseFile;
 
 function getFileData(string $pathToFile): array

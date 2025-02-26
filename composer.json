@@ -3,6 +3,7 @@
     "bin": ["bin/gendiff"],
     "description": "A CLI utility for generating diffs between two files.",
     "type": "library",
+    "license": "MIT",
     "autoload": {
         "files": [
             "src/Differ.php",
@@ -10,7 +11,7 @@
             "src/Formatters/FormatDiffStylish.php",
             "src/Formatters/FormatDiffPlain.php",
             "src/Formatters/FormatDiffJson.php",
-            "src/Formatters/Formatter.php",
+            "src/Formatter.php",
             "src/GenerationDiff.php",
             "src/Stringify.php"
         ]
