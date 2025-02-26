@@ -1,4 +1,4 @@
-name: show-directory
+name: ci-checks
 
 on:
   push:
