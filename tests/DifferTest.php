@@ -23,23 +23,34 @@ class DifferTest extends TestCase
             $this->assertEquals($expectedStylish, genDiff($file1, $file2));
         }
 
-        // Проверка JSON, YAML и yml в форматах stylish и plain и json
+        // Проверка JSON, YAML и YML в форматах stylish, plain и json
         $expectedStylish = file_get_contents($this->getFixturePath('expected1'));
-        $this->assertEquals($expectedStylish, genDiff(
-            $this->getFixturePath('file1.json'),
-            $this->getFixturePath('file2.yaml')
-        ));
-
-        $expectedPlain = file_get_contents($this->getFixturePath('expected2'));
-        $this->assertEquals($expectedPlain, genDiff(
-            $this->getFixturePath('file1.json'),
-            $this->getFixturePath('file2.yaml'), 'plain')
+        $this->assertEquals(
+            $expectedStylish,
+            genDiff(
+                $this->getFixturePath('file1.json'),
+                $this->getFixturePath('file2.yaml')
+            )
         );
 
-        $expectedPlain = file_get_contents($this->getFixturePath('expected3'));
-        $this->assertEquals($expectedPlain, genDiff(
+        $expectedPlain = file_get_contents($this->getFixturePath('expected2'));
+        $this->assertEquals(
+            $expectedPlain,
+            genDiff(
                 $this->getFixturePath('file1.json'),
-                $this->getFixturePath('file2.yml'), 'json')
+                $this->getFixturePath('file2.yaml'),
+                'plain'
+            )
+        );
+
+        $expectedJson = file_get_contents($this->getFixturePath('expected3'));
+        $this->assertEquals(
+            $expectedJson,
+            genDiff(
+                $this->getFixturePath('file1.json'),
+                $this->getFixturePath('file2.yml'),
+                'json'
+            )
         );
     }
 }
