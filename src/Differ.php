@@ -4,7 +4,7 @@ namespace Differ\Differ;
 
 use function Differ\GenerationDiff\generateDiff;
 use function Differ\Formatter\formatDifference;
-use function Differ\Parsers\parseFile;
+use function Differ\Parsers\parseData;
 
 function getFileData(string $pathToFile): array
 {
@@ -23,8 +23,8 @@ function genDiff($pathToFile1, $pathToFile2, $format = "stylish")
 {
     $fileInfo1 = getFileData($pathToFile1);
     $fileInfo2 = getFileData($pathToFile2);
-    $decodeFile1 = parseFile($fileInfo1['extension'], $fileInfo1['content']);
-    $decodeFile2 = parseFile($fileInfo2['extension'], $fileInfo2['content']);
+    $decodeFile1 = parseData($fileInfo1['extension'], $fileInfo1['content']); //parseData назови
+    $decodeFile2 = parseData($fileInfo2['extension'], $fileInfo2['content']);
     $differenceMap = generateDiff($decodeFile1, $decodeFile2); //вывод сравнения строк в двух файлах
     return formatDifference($differenceMap, $format);
 }

@@ -40,10 +40,10 @@ function formatStylish(array $diff, int $depth = 1): string
             NESTED => "{$currentIndent}  {$key}: " . formatStylish($node['children'], $depth + 1),
             ADDED => "{$currentIndent}+ {$key}: " . formatValue($node['value'], $depth + 1),
             REMOVED => "{$currentIndent}- {$key}: " . formatValue($node['value'], $depth + 1),
-            CHANGED => "{$currentIndent}- {$key}: " . formatValue($node['oldValue'], $depth + 1) . "\n"
+            CHANGED => "{$currentIndent}- {$key}: " . formatValue($node['oldValue'], $depth + 1) . PHP_EOL
                 . "{$currentIndent}+ {$key}: " . formatValue($node['newValue'], $depth + 1),
             UNCHANGED => "{$currentIndent}  {$key}: " . formatValue($node['value']),
-            default => throw new \Exception("Unknown type: $type"),
+            default => throw new \Exception("Unknown type: {$type}"),
         };
     }, $diff);
 

@@ -2,36 +2,44 @@
 
 namespace Differ\Tests;
 
-use PhpParser\Node\Expr\Print_;
-
 use PHPUnit\Framework\TestCase;
-
 use function Differ\Differ\genDiff;
 
 class DifferTest extends TestCase
 {
+    private function getFixturePath(string $filename): string
+    {
+        return __DIR__ . "/fixtures/{$filename}";
+    }
+
     public function testGenDiff(): void
     {
-        $pathFile1Json = __DIR__ . '/fixtures/file1.json';
-        $pathFile2Json = __DIR__ . '/fixtures/file2.json';
-        $pathFileExpected1 = __DIR__ . '/fixtures/expected1';
-        $resultGenDiff = genDiff($pathFile1Json, $pathFile2Json);
-        $expected1 = file_get_contents($pathFileExpected1);
-        $this->assertEquals($expected1, $resultGenDiff);
+        $formats = ['json', 'yaml', 'yml'];
+        foreach ($formats as $format) {
+            $file1 = $this->getFixturePath("file1.{$format}");
+            $file2 = $this->getFixturePath("file2.{$format}");
+            $expectedStylish = file_get_contents($this->getFixturePath('expected1'));
 
-        $pathFile1Yaml = __DIR__ . '/fixtures/file1.yaml';
-        $pathFile2Yaml = __DIR__ . '/fixtures/file2.yaml';
-        $pathFileExpected2 = __DIR__ . '/fixtures/expected1';
-        $resultGenDiff = genDiff($pathFile1Yaml, $pathFile2Yaml);
-        $expected2 = file_get_contents($pathFileExpected2);
-        $this->assertEquals($expected2, $resultGenDiff);
+            $this->assertEquals($expectedStylish, genDiff($file1, $file2));
+        }
 
-        $pathFileExpected3 = __DIR__ . '/fixtures/expected2';
-        $expectedPlain = file_get_contents($pathFileExpected3);
-        $this->assertEquals($expectedPlain, genDiff($pathFile1Json, $pathFile2Json, 'plain'));
+        // Проверка JSON, YAML и yml в форматах stylish и plain и json
+        $expectedStylish = file_get_contents($this->getFixturePath('expected1'));
+        $this->assertEquals($expectedStylish, genDiff(
+            $this->getFixturePath('file1.json'),
+            $this->getFixturePath('file2.yaml')
+        ));
 
-        $pathFileExpected4 = __DIR__ . '/fixtures/expected3';
-        $expectedJson = file_get_contents($pathFileExpected4);
-        $this->assertEquals($expectedJson, genDiff($pathFile1Json, $pathFile2Json, 'json'));
+        $expectedPlain = file_get_contents($this->getFixturePath('expected2'));
+        $this->assertEquals($expectedPlain, genDiff(
+            $this->getFixturePath('file1.json'),
+            $this->getFixturePath('file2.yaml'), 'plain')
+        );
+
+        $expectedPlain = file_get_contents($this->getFixturePath('expected3'));
+        $this->assertEquals($expectedPlain, genDiff(
+                $this->getFixturePath('file1.json'),
+                $this->getFixturePath('file2.yml'), 'json')
+        );
     }
 }
