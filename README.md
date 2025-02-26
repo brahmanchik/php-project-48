@@ -3,7 +3,7 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/brahmanchik/php-project-48/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/brahmanchik/php-project-48/actions)
 
-[![show-directory](https://github.com/brahmanchik/php-project-48/actions/workflows/show-directory.yml/badge.svg)](https://github.com/brahmanchik/php-project-48/actions/workflows/show-directory.yml)
+[![show-directory](https://github.com/brahmanchik/php-project-48/actions/workflows/ci-checks.yml/badge.svg)](https://github.com/brahmanchik/php-project-48/actions/workflows/ci-checks.yml)
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/193d24e5902652b42601/maintainability)](https://codeclimate.com/github/brahmanchik/php-project-48/maintainability)
 

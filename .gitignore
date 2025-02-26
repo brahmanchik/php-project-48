@@ -1,3 +1,7 @@
 /vendor/
 .idea
-.DS_Storeсв
+.DS_Store
+.phpunit.cache/
+build/logs/
+bin/demo.cast
+.phpunit.result.cache
